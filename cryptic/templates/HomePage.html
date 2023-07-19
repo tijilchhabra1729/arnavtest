@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<main class="hero">
+    <div class="hero-content">
+        <div class="typewriter">
+            <div class="static-text">Decode 2021</div>
+            <ul class="dynamic-text">
+                <li><span>Beginning soon</span></li>
+                <li><span>8th - 9th Jan</span></li>
+            </ul>
+        </div>
+
+        <img src="../static/cropped logo.png" alt="logo" class="logo-main">
+
+        <div class="cd-wrapper">
+            <p class="cd-day"></p>
+            <p class="cd-hour"></p>
+            <p class="cd-min"></p>
+            <p class="cd-sec"></p>
+        </div>
+    </div>
+</main>
+<script>
+    const cdDate = new Date('Jan 11, 2022 00:00:00').getTime();
+
+    let cdfunc = setInterval(function() {
+        let now = new Date().getTime();
+        let limit = cdDate - now;
+        let days = Math.floor(limit / (1000 * 60 * 60 * 24));
+        let hours = Math.floor(limit % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+        let mins = Math.floor(limit % (1000 * 60 * 60) / (1000 * 60));
+        let seconds = Math.floor(limit % (1000 * 60) / 1000);
+
+        document.querySelector('.cd-day').innerHTML = days + "d:";
+        document.querySelector('.cd-hour').innerHTML = hours + "h:";
+        document.querySelector('.cd-min').innerHTML = mins + "m:";
+        document.querySelector('.cd-sec').innerHTML = seconds + "s";
+
+        if (limit < 0) {
+            clearInterval(cdfunc);
+            document.querySelector('.cd').innerHTML = '0';
+        }
+    }, 1000)
+</script>
+{% endblock %}
